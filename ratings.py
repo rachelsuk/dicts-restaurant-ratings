@@ -1,28 +1,40 @@
 """Restaurant rating lister."""
-file = open('scores.txt')
-rest_ratings = {}
 
-for line in file:
-    line = line.rstrip()
-    rest_ratings[line[:-2]]=line[-1]
+def create_dict_ratings(file_name):
+    file = open(file_name)
+    rest_ratings = {}
+    for line in file:
+        line = line.rstrip()
+        rest_ratings[line[:-2]]=line[-1]
+    return rest_ratings
 
 def sort_alpha(dictionary):
     sorted_list = sorted(dictionary.items())
     return sorted_list 
 
+def add_rest_rating(dictionary):
+    while True:
+        try: 
+            restaurant = input("What is the restaurant name? ").rstrip()
+            restaurant_score = int(input("What is the restaurant score? ").rstrip())
+
+            if 1 <= restaurant_score <= 5:
+                dictionary[restaurant] = restaurant_score
+                break 
+            else:
+                print("Rating must be 1-5. Try again.")
+            
+        except ValueError:
+            print ("Rating must be an integer! Try again.")
+    return dictionary
+
+restaurant_ratings = create_dict_ratings("scores.txt")
 while True:
-    try: 
-        restaurant = input("What is the restaurant name? ").rstrip()
-        restaurant_score = int(input("What is the restaurant score? "))
-
-        if 1 <= restaurant_score <= 5:
-            rest_ratings[restaurant] = restaurant_score
-            break 
-        else:
-            print ("Rating must be 1-5. Try again.")
-        
-    except ValueError:
-        print ("Rating must be an integer! Try again.")
-
-for word in sort_alpha(rest_ratings):
-    print(f"{word[0]} is rated at {word[1]}.")
+    command = int(input("What would you like to do? Enter 1 to see all the restaurant ratings, 2 to add a new restaurant rating and 3 to quit: "))
+    if command == 1:
+        for restaurant, rating in sort_alpha(restaurant_ratings):
+            print(f"{restaurant} is rated at {rating}.")
+    elif command == 2:
+        restaurant_ratings = add_rest_rating(restaurant_ratings)
+    elif command == 3:
+        break
