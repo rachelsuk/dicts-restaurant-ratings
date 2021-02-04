@@ -37,8 +37,8 @@ while True:
     elif command == 2:
         restaurant_ratings = add_rest_rating(restaurant_ratings)
     elif command == 3:
-        restaurant = random.choice(restaurant_ratings)
-        rating = int(input(f'what would you like to rate {restaurant}?'))
+        restaurant = random.choice(list(restaurant_ratings.keys()))
+        rating = int(input(f'what would you like to rate {restaurant}? '))
         restaurant_ratings[restaurant] = rating
     elif command == 4:
         break
