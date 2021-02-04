@@ -1,5 +1,6 @@
 """Restaurant rating lister."""
 import random
+import os
 def create_dict_ratings(file_name):
     file = open(file_name)
     rest_ratings = {}
@@ -15,7 +16,6 @@ def sort_alpha(dictionary):
 def add_rest_rating(restaurant, dictionary):
     while True:
         try: 
-
             restaurant_score = int(input(f"What is {restaurant}'s score? ").rstrip())
 
             if 1 <= restaurant_score <= 5:
@@ -51,7 +51,20 @@ def update_rest_rating(dictionary):
         except ValueError:
             print ("Rating must be an integer! Try again.")
     return dictionary
-restaurant_ratings = create_dict_ratings("scores.txt")
+
+
+txt_files = []
+for file_dir in os.listdir("."):
+    if file_dir.endswith('.txt'):
+        txt_files.append(file_dir)
+while True:
+    print(f'txt_files in current directory: {txt_files} ')
+    file = input('Which file would you like use?')
+    if os.path.isfile(file):
+        restaurant_ratings = create_dict_ratings(file)
+        break
+    else:
+        print("Not a valid file name. Try again. ")
 while True:
     command = int(input("What would you like to do? Enter 1 to see all the restaurant ratings, 2 to add or update a new restaurant rating, and 3 to quit: "))
     if command == 1:
