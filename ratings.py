@@ -10,23 +10,19 @@ def sort_alpha(dictionary):
     sorted_list = sorted(dictionary.items())
     return sorted_list 
 
-# restaurant = input("What is the restaurant name? ")
-# restaurant_score = int(input("What is the restaurant score? "))
-# rest_ratings[restaurant] = restaurant_score
-
 while True:
     try: 
         restaurant = input("What is the restaurant name? ").rstrip()
         restaurant_score = int(input("What is the restaurant score? "))
 
-        if 1 <= restaurant_score <= 5 and type(restaurant_score)==int:
+        if 1 <= restaurant_score <= 5:
             rest_ratings[restaurant] = restaurant_score
             break 
         else:
-            print ("Try again")
+            print ("Rating must be 1-5. Try again.")
         
     except ValueError:
-        print ("That's not even a number!")
+        print ("Rating must be an integer! Try again.")
 
 for word in sort_alpha(rest_ratings):
     print(f"{word[0]} is rated at {word[1]}.")
